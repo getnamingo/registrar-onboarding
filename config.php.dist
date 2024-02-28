@@ -1,0 +1,19 @@
+<?php
+
+return [
+    'db_type' => 'mysql',
+    'db_host' => 'localhost',
+    'db_port' => 3306,
+    'db_database' => 'registry',
+    'db_username' => 'your_username',
+    'db_password' => 'your_password',
+    'registry_manager' => 'Enter Name',
+    'jurisdiction' => 'Ukraine',
+    'arbitration' => 'Arbitration Association',
+    'number_years' => 'Arbitration Association',
+    'term' => '5 years',
+    'days' => '30',
+    'registry_name' => 'Example Registry LLC',
+    'registry_address' => 'Sample Registry Address',
+    'tld' => '.TEST',
+];
