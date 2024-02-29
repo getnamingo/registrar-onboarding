@@ -7,6 +7,8 @@ return [
     'db_database' => 'registry',
     'db_username' => 'your_username',
     'db_password' => 'your_password',
+    'admin_username' => 'admin',
+    'admin_password' => 'password@',
     'registry_manager' => 'Enter Name',
     'jurisdiction' => 'Ukraine',
     'arbitration' => 'Arbitration Association',

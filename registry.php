@@ -1,4 +1,7 @@
 <?php
+session_start();
+$c = require_once 'config.php';
+
 // Check if user has provided credentials via HTTP Authentication
 if (!isset($_SERVER['PHP_AUTH_USER'])) {
     header('WWW-Authenticate: Basic realm="My Protected Area"');
@@ -7,7 +10,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     exit;
 } else {
     // Validate the credentials
-    if ($_SERVER['PHP_AUTH_USER'] == 'admin' && $_SERVER['PHP_AUTH_PW'] == 'demo') {
+    if ($_SERVER['PHP_AUTH_USER'] == $c['admin_username'] && $_SERVER['PHP_AUTH_PW'] == $c['admin_password']) {
     } else {
         // If credentials are invalid, prompt again
         header('WWW-Authenticate: Basic realm="My Protected Area"');

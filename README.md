@@ -50,9 +50,7 @@ onboarding.YOUR_DOMAIN {
 
 - Admin interface: [https://onboarding.namingo.org/registry.php](https://onboarding.namingo.org/registry.php)
 
-- Move config.php.dist to config.php and add your details. Also, customize the contract at contract.tpl
-
-- Put your secure username and password in registry.php
+- Rename config.php.dist to config.php and configure your details. Also, customize the contents of the contract by editing the `$CONTRACT_HTML` variable in contract.tpl
 
 ## TODO
 
