@@ -216,7 +216,7 @@ $regAddr = $ownerStreet1 . ', ' . $ownerCity . ', ' . $ownerSp . ', ' . $ownerPc
 $regSign = $ownerFirstName . ' ' . $ownerLastName;
 
 $now = new DateTime();
-$formattedDate = $now->format('F d, Y at h:i:s A T');
+$formattedDate = $now->format('F d, Y') . ' at ' . $now->format('h:i:s A T');
 
 $search = [
     '[Registrar Name]',
