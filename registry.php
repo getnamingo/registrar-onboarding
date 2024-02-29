@@ -106,10 +106,6 @@ if ($_GET['action'] == 'approve') {
         $registrar = $sqliteQuery->fetch(PDO::FETCH_ASSOC);
 
         if ($registrar) {
-            $stmtA = $sqlite->prepare("UPDATE registrar SET status = 'Approved' WHERE id = :id");
-            $stmtA->bindParam(':id', $registrar['id']);
-            $stmtA->execute();
-
             $currentDateTime = new \DateTime();
             $crdate = $currentDateTime->format('Y-m-d H:i:s.v');
             $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -253,6 +249,11 @@ if ($_GET['action'] == 'approve') {
             }
             
             $mariaDb->commit();
+
+            $stmtA = $sqlite->prepare("UPDATE registrar SET status = 'Approved' WHERE id = :id");
+            $stmtA->bindParam(':id', $registrar['id']);
+            $stmtA->execute();
+
             echo '<div class="card-body">Registrar created successfully.</div>';
             
         } else {
