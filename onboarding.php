@@ -215,6 +215,9 @@ if ($originalContent === false) {
 $regAddr = $ownerStreet1 . ', ' . $ownerCity . ', ' . $ownerSp . ', ' . $ownerPc . ', ' . $ownerCc;
 $regSign = $ownerFirstName . ' ' . $ownerLastName;
 
+$now = new DateTime();
+$formattedDate = $now->format('F d, Y at h:i:s A T');
+
 $search = [
     '[Registrar Name]',
     '[Registrar Address]',
@@ -231,6 +234,8 @@ $search = [
     '[Registry Name]',
     '[Registry Address]',
     '[.TLD]',
+    '1.2.3.4',
+    'February 28, 2024 at 12:19:30 PM GMT+2',
 ];
 
 $replace = [
@@ -249,6 +254,8 @@ $replace = [
     $c['registry_name'],
     $c['registry_address'],
     $c['tld'],
+    $_SERVER['REMOTE_ADDR'],
+    $formattedDate,
 ];
 
 $replacedContent = str_replace($search, $replace, $originalContent);

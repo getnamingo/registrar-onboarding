@@ -58,15 +58,13 @@ onboarding.YOUR_DOMAIN {
 
 - Better protection for admin interface.
 
-- Docusign and other options like EIDAS.
+- Integration with DocuSign, DocuSeal, Odoo Sign and EIDAS.
 
 - Mailing notifications.
 
 - Way to delete or protect contracts from public eye.
 
 - Options to pay onboarding fee if registry needs it.
-
-- Replace registry IP on timestamp.
 
 ## Acknowledgements
 
