@@ -454,20 +454,61 @@ else {
   die();
 }
 
-
 // Function to email notifications; gets called when Client signs
 function sendEmails($clientEmail, $devEmail)
 {
   if ($clientEmail) {
-    $headers = "From: " . $devEmail . "\r\nMIME-Version: 1.0\r\nContent-Type: text/html; charset=ISO-8859-1\r\n";
     $msg = 'The contract was signed. You can <a href="' . getHtmlUrl() . '">view or download this contract from here</a>.';
-    mail($clientEmail, 'Contract signed', $msg, $headers);
+    $url = 'http://127.0.0.1:8250';
+    $data = ['type' => 'sendmail', 'toEmail' => $clientEmail, 'subject' => 'Contract signed', 'body' => $msg];
+
+    $options = [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CUSTOMREQUEST  => 'POST',
+        CURLOPT_POSTFIELDS     => json_encode($data),
+        CURLOPT_HTTPHEADER     => [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen(json_encode($data))
+        ],
+    ];
+
+    $curl = curl_init($url);
+    curl_setopt_array($curl, $options);
+
+    $response = curl_exec($curl);
+
+    if ($response === false) {
+        throw new Exception(curl_error($curl), curl_errno($curl));
+    }
+
+    curl_close($curl);
   }
   if ($devEmail) {
-    $headers = "From: " . $clientEmail . "\r\nMIME-Version: 1.0\r\nContent-Type: text/html; charset=ISO-8859-1\r\n";
     $msg = '<p>A new contract was signed. You can <a href="' . getHtmlUrl() . '">view or download this contract from here</a>.</p>';
     $msg .= 'The contract was signed by: ' . $clientEmail;
-    mail($devEmail, 'Contract signed!', $msg, $headers);
+    $url = 'http://127.0.0.1:8250';
+    $data = ['type' => 'sendmail', 'toEmail' => $devEmail, 'subject' => 'Contract signed!', 'body' => $msg];
+
+    $options = [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CUSTOMREQUEST  => 'POST',
+        CURLOPT_POSTFIELDS     => json_encode($data),
+        CURLOPT_HTTPHEADER     => [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen(json_encode($data))
+        ],
+    ];
+
+    $curl = curl_init($url);
+    curl_setopt_array($curl, $options);
+
+    $response = curl_exec($curl);
+
+    if ($response === false) {
+        throw new Exception(curl_error($curl), curl_errno($curl));
+    }
+
+    curl_close($curl);
   }
 }
 ?>

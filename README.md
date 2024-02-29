@@ -58,8 +58,6 @@ onboarding.YOUR_DOMAIN {
 
 - Integration with DocuSign, DocuSeal, Odoo Sign and EIDAS.
 
-- Mailing notifications.
-
 - Way to delete or protect contracts from public eye.
 
 - Options to pay onboarding fee if registry needs it.
