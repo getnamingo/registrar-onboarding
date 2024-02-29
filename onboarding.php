@@ -1,5 +1,7 @@
 <?php
 session_start();
+require __DIR__ . '/vendor/autoload.php';
+$generator = new \Delight\Ids\Id();
 $c = require_once 'config.php';
 ?>
 <!doctype html>
@@ -308,7 +310,15 @@ if ($result === false) {
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon text-success" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" /><path d="M9 17v-4" /><path d="M12 17v-1" /><path d="M15 17v-2" /><path d="M12 17v-1" /></svg>
                 </span>
                 <span class="col">
-                  <strong class="d-block">Application ID: <?php echo $lastId; ?></strong>
+                  <strong class="d-block">Application ID: <?php echo $generator->obfuscate($lastId); ?></strong>
+                </span>
+              </li>
+              <li class="row g-2">
+                <span class="col-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon text-primary" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l18 0" /><path d="M3 10l18 0" /><path d="M5 6l7 -3l7 3" /><path d="M4 10l0 11" /><path d="M20 10l0 11" /><path d="M8 14l0 3" /><path d="M12 14l0 3" /><path d="M16 14l0 3" /></svg>
+                </span>
+                <span class="col">
+                  <strong class="d-block">Use it as your payment reference for bank payments related to your application fee and initial deposit.</strong>
                 </span>
               </li>
             </ul>

@@ -7,9 +7,11 @@ Beta version of the automated registrar onboarding tool for Namingo Registry
 
 ```bash
 apt install sqlite3 php8.2-sqlite3
-mkdir /var/www/Onboarding
+mkdir /var/www/onboarding
 git clone https://github.com/getnamingo/registrar-onboarding-beta /var/www/onboarding
 chown -R www-data:www-data /var/www/onboarding/
+cd /var/www/onboarding
+composer install
 ```
 
 2. Edit `/etc/caddy/Caddyfile` and add as new record the following, then replace the values with your own.

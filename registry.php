@@ -1,5 +1,7 @@
 <?php
 session_start();
+require __DIR__ . '/vendor/autoload.php';
+$generator = new \Delight\Ids\Id();
 $c = require_once 'config.php';
 
 // Check if user has provided credentials via HTTP Authentication
@@ -76,20 +78,25 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
         </div>
         <div class="card">
 <?php
-$c = require_once 'config.php';
-
 if ($_GET['action'] == 'approve') {
-    // PDO connection setup
     $sqlite = new PDO('sqlite:/var/www/onboarding/registrar.db');
+    $sqlite->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
     $dsn = "{$c['db_type']}:host={$c['db_host']};dbname={$c['db_database']}";
     $options = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
-    $mariaDb = new PDO($dsn, $c['db_username'], $c['db_password'], $options);
+
+    try {
+        $mariaDb = new PDO($dsn, $c['db_username'], $c['db_password'], $options);
+    } catch (PDOException $e) {
+        echo '<div class="card-body">Database error: ' . $e->getMessage() . '</div>';
+    }
 
     $registrarId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $registrarId = $generator->deobfuscate($registrarId);
     $registrarId = intval($registrarId);
 
     try {
@@ -296,14 +303,14 @@ if ($_GET['action'] == 'approve') {
                     <?php else: ?>
                         <?php foreach ($rows as $row): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($row['id']); ?></td>
+                                <td><?php echo $generator->obfuscate($row['id']); ?></td>
                                 <td><strong><?php echo htmlspecialchars($row['name']); ?></strong></td>
                                 <td><?php echo htmlspecialchars($row['email']); ?></td>
                                 <td>
                                     <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="popover" title="Application Details" data-bs-content="<?php echo 'Contact: ' . htmlspecialchars($row['first_name'].' '.$row['last_name']) . ' from ' . htmlspecialchars($row['city']) . ', ' . htmlspecialchars($row['cc']) . '. Created on: ' . htmlspecialchars($row['crdate']) . '. IANA ID: ';
                                     echo !empty($row['iana_id']) ? htmlspecialchars($row['iana_id']) : 'N/A'; ?>">Details</button>
                                     <a href="/contract-<?php echo htmlspecialchars($row['clid']); ?>.html" target="_blank" class="btn btn-outline-primary btn-sm">Agreement</a>
-                                    <a href="/registry.php?action=approve&id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-primary btn-sm">Approve</a>
+                                    <a href="/registry.php?action=approve&id=<?php echo $generator->obfuscate($row['id']); ?>" class="btn btn-primary btn-sm">Approve</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
