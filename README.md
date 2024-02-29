@@ -64,10 +64,6 @@ onboarding.YOUR_DOMAIN {
 
 - Way to delete or protect contracts from public eye.
 
-- Once registrar is approved, to be marked as Approved in SQLite.
-
-- Registry staff to view all data for registrar.
-
 - Options to pay onboarding fee if registry needs it.
 
 - Replace registry IP on timestamp.

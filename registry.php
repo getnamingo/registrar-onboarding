@@ -96,6 +96,10 @@ if ($_GET['action'] == 'approve') {
         $registrar = $sqliteQuery->fetch(PDO::FETCH_ASSOC);
 
         if ($registrar) {
+            $stmtA = $sqlite->prepare("UPDATE registrar SET status = 'Approved' WHERE id = :id");
+            $stmtA->bindParam(':id', $registrar['id']);
+            $stmtA->execute();
+
             $currentDateTime = new \DateTime();
             $crdate = $currentDateTime->format('Y-m-d H:i:s.v');
             $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -258,8 +262,6 @@ if ($_GET['action'] == 'approve') {
         // PDO connection to SQLite database
         $pdo = new PDO('sqlite:/var/www/onboarding/registrar.db');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        // Prepare and execute query
         $sql = "SELECT * FROM registrar WHERE status = 'pendingAgreement'";
         $stmt = $pdo->query($sql);
 
@@ -277,29 +279,32 @@ if ($_GET['action'] == 'approve') {
             <table class="table table-vcenter card-table">
                 <thead>
                     <tr>
-                        <th>Application</th>
+                        <th>Application ID</th>
                         <th>Name</th>
-                        <th>IANA ID</th>
                         <th>Email</th>
-                        <th>Agreement</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($rows as $row): ?>
+                    <?php if (empty($rows)): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($row['id']); ?></td>
-                            <td><strong><?php echo htmlspecialchars($row['name']); ?></strong></td>
-                            <td><?php echo !empty($row['iana_id']) ? htmlspecialchars($row['iana_id']) : 'N/A'; ?></td>
-                            <td><?php echo htmlspecialchars($row['email']); ?></td>
-                            <td>
-                                <a href="/contract-<?php echo htmlspecialchars($row['clid']); ?>.html" target="_blank" class="btn btn-outline-primary btn-sm">View</a>
-                            </td>
-                            <td>
-                                <a href="/registry.php?action=approve&id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-primary btn-sm">Approve</a>
-                            </td>
+                            <td colspan="4" class="text-center">There are no applications to approve.</td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php else: ?>
+                        <?php foreach ($rows as $row): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($row['id']); ?></td>
+                                <td><strong><?php echo htmlspecialchars($row['name']); ?></strong></td>
+                                <td><?php echo htmlspecialchars($row['email']); ?></td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="popover" title="Application Details" data-bs-content="<?php echo 'Contact: ' . htmlspecialchars($row['first_name'].' '.$row['last_name']) . ' from ' . htmlspecialchars($row['city']) . ', ' . htmlspecialchars($row['cc']) . '. Created on: ' . htmlspecialchars($row['crdate']) . '. IANA ID: ';
+                                    echo !empty($row['iana_id']) ? htmlspecialchars($row['iana_id']) : 'N/A'; ?>">Details</button>
+                                    <a href="/contract-<?php echo htmlspecialchars($row['clid']); ?>.html" target="_blank" class="btn btn-outline-primary btn-sm">Agreement</a>
+                                    <a href="/registry.php?action=approve&id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-primary btn-sm">Approve</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
           </div>
