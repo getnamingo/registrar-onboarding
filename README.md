@@ -47,6 +47,8 @@ onboarding.YOUR_DOMAIN {
 }
 ```
 
+4. Restart Caddy with `systemctl restart caddy`
+
 ## How to use
 
 - Onboarding form: [https://onboarding.namingo.org/](https://onboarding.namingo.org/)
