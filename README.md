@@ -1,9 +1,10 @@
-# Automated Registrar Onboarding
-Beta version of the automated registrar onboarding tool for Namingo Registry
+# Namingo Automated Registrar Onboarding
 
 ## Install
 
-1. Namingo Registry must be already installed
+1. Namingo Registry must be already installed.
+
+2. Install the Automated Registrar Onboarding component:
 
 ```bash
 apt install sqlite3 php8.2-sqlite3
@@ -14,7 +15,7 @@ cd /var/www/onboarding
 composer install
 ```
 
-2. Edit `/etc/caddy/Caddyfile` and add as new record the following, then replace the values with your own.
+3. Edit `/etc/caddy/Caddyfile` and add as new record the following, then replace the values with your own.
 
 ```bash
 onboarding.YOUR_DOMAIN {
