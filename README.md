@@ -13,9 +13,12 @@ git clone https://github.com/getnamingo/registrar-onboarding /var/www/onboarding
 chown -R www-data:www-data /var/www/onboarding/
 cd /var/www/onboarding
 composer install
+mv config.php.dist config.php
 ```
 
-3. Edit `/etc/caddy/Caddyfile` and add as new record the following, then replace the values with your own.
+3. Configure database and rate limit deatils in config.php
+
+4. Edit `/etc/caddy/Caddyfile` and add as new record the following, then replace the values with your own.
 
 ```bash
 onboarding.YOUR_DOMAIN {
@@ -47,7 +50,7 @@ onboarding.YOUR_DOMAIN {
 }
 ```
 
-4. Restart Caddy with `systemctl restart caddy`
+5. Restart Caddy with `systemctl restart caddy`
 
 ## How to use
 
