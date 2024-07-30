@@ -9,7 +9,7 @@
 ```bash
 apt install sqlite3 php8.2-sqlite3
 mkdir /var/www/onboarding
-git clone https://github.com/getnamingo/registrar-onboarding-beta /var/www/onboarding
+git clone https://github.com/getnamingo/registrar-onboarding /var/www/onboarding
 chown -R www-data:www-data /var/www/onboarding/
 cd /var/www/onboarding
 composer install
