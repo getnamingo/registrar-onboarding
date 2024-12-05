@@ -275,10 +275,11 @@ if($CLIENT_SIGNATURE==null) {
       if (!document.querySelector(selector)) return
       
       const canvas = document.querySelector(selector)
+      const customURL = window.location.origin + "/onboarding?applicationId=' . $application_id . '";
   
       let qr = new QRious({
           element: canvas,
-          value: window.location.href,
+          value: customURL,
           foreground: "hsl(200, 30%, 20%)",
           padding: 0,
           size: 500,

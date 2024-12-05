@@ -447,10 +447,24 @@
         updateButtonVisibility(step);
       }
 
+      function validateStep(step) {
+        const stepElements = document.querySelectorAll('.step-' + step + ' input, .step-' + step + ' select');
+        for (let element of stepElements) {
+          if (!element.checkValidity()) {
+            element.reportValidity(); // Highlights the invalid field
+            element.focus(); // Focuses on the first invalid field
+            return false; // Prevents moving to the next step
+          }
+        }
+        return true; // All fields are valid
+      }
+
       nextBtn.addEventListener('click', () => {
         if (currentStep < totalSteps) {
-          currentStep++;
-          showStep(currentStep);
+          if (validateStep(currentStep)) {
+            currentStep++;
+            showStep(currentStep);
+          }
         } else {
           // Handle form submission here if the form is complete
           console.log('Form submission logic here.');
