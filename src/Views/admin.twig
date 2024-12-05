@@ -1,0 +1,55 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <body class="d-flex flex-column">
+    <div class="page page-center">
+      <div class="container container-narrow py-4">
+        <div class="text-center mb-4">
+          <a href="." class="navbar-brand navbar-brand-autodark">
+            <img src="./static/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+          </a>
+        </div>
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table table-vcenter card-table">
+                    <thead>
+                        <tr>
+                            <th>Application ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if rows is empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">There are no applications to approve.</td>
+                            </tr>
+                        {% else %}
+                            {% for row in rows %}
+                                <tr>
+                                    <td>{{ row.id | obfuscate }}</td>
+                                    <td><strong>{{ row.name | e }}</strong></td>
+                                    <td>{{ row.email | e }}</td>
+                                    <td>
+                                        <button type="button" 
+                                                class="btn btn-outline-secondary btn-sm" 
+                                                data-bs-toggle="popover" 
+                                                title="Application Details" 
+                                                data-bs-content="Contact: {{ row.first_name | e }} {{ row.last_name | e }} from {{ row.city | e }}, {{ row.cc | e }}. Created on: {{ row.crdate | e }}. IANA ID: {{ row.iana_id is not empty ? row.iana_id | e : 'N/A' }}">
+                                            Details
+                                        </button>
+                                        <a href="/registry-admin/view/{{ row.id | obfuscate }}" target="_blank" class="btn btn-info btn-sm">View Agreement</a>
+                                        <a href="/registry-admin/approve/{{ row.id | obfuscate }}" class="btn btn-primary btn-sm">Approve</a>
+                                        <a href="/registry-admin/reject/{{ row.id | obfuscate }}" class="btn btn-red btn-sm">Reject</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

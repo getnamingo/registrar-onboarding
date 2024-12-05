@@ -7,7 +7,7 @@
 2. Install the Automated Registrar Onboarding component:
 
 ```bash
-apt install sqlite3 php8.2-sqlite3
+apt install sqlite3 php8.3-sqlite3
 mkdir /var/www/onboarding
 git clone https://github.com/getnamingo/registrar-onboarding /var/www/onboarding
 chown -R www-data:www-data /var/www/onboarding/
@@ -16,7 +16,7 @@ composer install
 mv config.php.dist config.php
 ```
 
-3. Configure database and rate limit deatils in config.php
+3. Rename config.php.dist to config.php and configure your details. Also, customize the contents of the contract by editing the `$CONTRACT_HTML` variable in contract.tpl
 
 4. Edit `/etc/caddy/Caddyfile` and add as new record the following, then replace the values with your own.
 
@@ -56,17 +56,13 @@ onboarding.YOUR_DOMAIN {
 
 - Onboarding form: [https://onboarding.namingo.org/](https://onboarding.namingo.org/)
 
-- Admin interface: [https://onboarding.namingo.org/registry.php](https://onboarding.namingo.org/registry.php)
-
-- Rename config.php.dist to config.php and configure your details. Also, customize the contents of the contract by editing the `$CONTRACT_HTML` variable in contract.tpl
+- Admin interface: [https://onboarding.namingo.org/registry-admin](https://onboarding.namingo.org/registry-admin)
 
 ## TODO
 
 - Better protection for admin interface.
 
 - Integration with DocuSign, DocuSeal, Odoo Sign and EIDAS.
-
-- Way to delete or protect contracts from public eye.
 
 - Options to pay onboarding fee if registry needs it.
 

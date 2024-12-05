@@ -1,0 +1,50 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <body class="d-flex flex-column">
+    <div class="page page-center">
+      <div class="container container-tight py-4">
+        <div class="text-center mb-4">
+          <a href="." class="navbar-brand navbar-brand-autodark">
+            <img src="./static/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+          </a>
+        </div>
+        <div class="card card-md">
+          <div class="card-body">
+            <h2 class="mb-3">Sign the Registry-Registrar Agreement</h2>
+            <p class="text-secondary mb-4">
+              To proceed with your registrar account setup, you need to sign the Registry-Registrar Agreement. This agreement outlines the terms and conditions of your partnership with us. Please review and sign the document to continue. Then, after approval by our team, your registrar account will be created, and you will receive an email confirmation.
+            </p>
+            <ul class="list-unstyled space-y">
+              <li class="row g-2">
+                <span class="col-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon text-success" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" /><path d="M9 17v-4" /><path d="M12 17v-1" /><path d="M15 17v-2" /><path d="M12 17v-1" /></svg>
+                </span>
+                <span class="col">
+                  <strong class="d-block">Application ID: {{ application_id }}</strong>
+                </span>
+              </li>
+              <li class="row g-2">
+                <span class="col-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon text-primary" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l18 0" /><path d="M3 10l18 0" /><path d="M5 6l7 -3l7 3" /><path d="M4 10l0 11" /><path d="M20 10l0 11" /><path d="M8 14l0 3" /><path d="M12 14l0 3" /><path d="M16 14l0 3" /></svg>
+                </span>
+                <span class="col">
+                  <strong class="d-block">Use it as your payment reference for bank payments related to your application fee and initial deposit.</strong>
+                </span>
+              </li>
+            </ul>
+            <div class="my-4">
+                <a href="{{ contract_signed == 1 ? '/contract/view' : '/contract' }}" 
+                   target="_blank" 
+                   class="btn {{ contract_signed == 1 ? 'btn-success' : 'btn-primary' }} w-100">
+                    {{ contract_signed == 1 ? 'View Agreement' : 'Sign Agreement' }}
+                </a>
+            </div>
+            <p class="text-secondary">
+              If you need help, please <a href="#">contact us</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
