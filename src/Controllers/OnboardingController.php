@@ -203,11 +203,13 @@ class OnboardingController
             }
             
             return $this->twig->render($response, 'onboarding_form.twig', [
-                'title' => 'Thank You!',
+                'title' => 'Automated Registrar Onboarding',
                 'application_id' => $application_id,
+                'support_email' => $c['registry_support_email'],
             ]);
         } else {
             $applicationId = Session::get('application_id');
+            $c = require_once '/var/www/onboarding/config.php';
 
             if (empty($applicationId)) {
                 // Attempt to retrieve applicationId from the query parameter
@@ -265,9 +267,10 @@ class OnboardingController
             $contract_signed = Session::get('contract_signed');
 
             return $this->twig->render($response, 'onboarding_form.twig', [
-                'title' => 'Thank You!',
+                'title' => 'Automated Registrar Onboarding',
                 'application_id' => $applicationId,
                 'contract_signed' => $contract_signed,
+                'support_email' => $c['registry_support_email'],
             ]);
         }
     }

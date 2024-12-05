@@ -16,7 +16,7 @@ composer install
 mv config.php.dist config.php
 ```
 
-3. Rename config.php.dist to config.php and configure your details. Also, customize the contents of the contract by editing the `$CONTRACT_HTML` variable in contract.tpl
+3. Configure your details in `/var/www/onboarding/config.php` and customize the contents of the contract by editing the `$CONTRACT_HTML` variable in `/var/www/onboarding/contract.tpl`
 
 4. Edit `/etc/caddy/Caddyfile` and add as new record the following, then replace the values with your own.
 
@@ -25,7 +25,7 @@ onboarding.YOUR_DOMAIN {
     bind YOUR_IP
     root * /var/www/onboarding
     encode gzip
-    php_fastcgi unix//run/php/php8.2-fpm.sock
+    php_fastcgi unix//run/php/php8.3-fpm.sock
     file_server
 
     # Redirect /contract.tpl to /
@@ -56,11 +56,11 @@ onboarding.YOUR_DOMAIN {
 
 - Onboarding form: [https://onboarding.namingo.org/](https://onboarding.namingo.org/)
 
+- Access to your application: [https://onboarding.namingo.org/onboarding?applicationId=APPLICATION_ID_HERE](https://onboarding.namingo.org/onboarding?applicationId=APPLICATION_ID_HERE)
+
 - Admin interface: [https://onboarding.namingo.org/registry-admin](https://onboarding.namingo.org/registry-admin)
 
 ## TODO
-
-- Better protection for admin interface.
 
 - Integration with DocuSign, DocuSeal, Odoo Sign and EIDAS.
 
@@ -71,3 +71,7 @@ onboarding.YOUR_DOMAIN {
 We extend our gratitude to:
 - **ChatGPT** for invaluable assistance with code and text writing.
 - [Single File Contract](https://github.com/nonsalant/contract)
+
+## Licensing
+
+Namingo Automated Registrar Onboarding is licensed under the MIT License.

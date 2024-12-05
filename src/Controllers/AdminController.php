@@ -51,30 +51,34 @@ class AdminController
         }
 
         $data = $request->getParsedBody();
-        
+
         try {
             // PDO connection to SQLite database
             $pdo = new \PDO('sqlite:/var/www/onboarding/registrar.db');
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+            // Query the registrar table
             $sql = "SELECT * FROM registrar WHERE status = 'pendingAgreement'";
             $stmt = $pdo->query($sql);
 
             // Fetch all rows
             $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            // Handle SQL errors or connection problems
-            echo '<div class="card-body">Database error: ' . $e->getMessage() . '</div>';
-        } catch (Exception $e) {
-            // Handle any other errors
-            echo '<div class="card-body">General error: ' . $e->getMessage() . '</div>';
-        }    
-                    
+        } catch (\PDOException $e) {
+            // Handle the exception if the table doesn't exist
+            if (strpos($e->getMessage(), 'no such table') !== false) {
+                $rows = null; // Set rows to null if table is missing
+            } else {
+                // Re-throw the exception for other PDO errors
+                throw $e;
+            }
+        }
+
         return $this->twig->render($response, 'admin.twig', [
             'title' => 'Home',
             'rows' => $rows,
         ]);
     }
-    
+
     public function approveAgreement(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         // Retrieve the application ID from the route parameters

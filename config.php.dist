@@ -17,5 +17,6 @@ return [
     'days' => '30',
     'registry_name' => 'Example Registry LLC',
     'registry_address' => 'Sample Registry Address',
+    'registry_support_email' => 'support@registry.example',
     'tld' => '.TEST',
 ];
