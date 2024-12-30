@@ -18,12 +18,12 @@ mv config.php.dist config.php
 
 3. Configure your details in `/var/www/onboarding/config.php` and customize the contents of the contract by editing the `$CONTRACT_HTML` variable in `/var/www/onboarding/contract.tpl`
 
-4. Edit `/etc/caddy/Caddyfile` and add as new record the following, then replace the values with your own.
+4. Edit `/etc/caddy/Caddyfile` and add as new record the following, then replace the `YOUR_` values with your own.
 
 ```bash
 onboarding.YOUR_DOMAIN {
     bind YOUR_IP
-    root * /var/www/onboarding
+    root * /var/www/onboarding/public
     encode gzip
     php_fastcgi unix//run/php/php8.3-fpm.sock
     file_server
